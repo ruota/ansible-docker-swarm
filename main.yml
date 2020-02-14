@@ -1,3 +1,3 @@
 - import_playbook: tasks/provisioning_vm_centos.yml
-
+- import_playbook: tasks/configure_docker_swarm.yml
 

@@ -1,0 +1,22 @@
+---
+- hosts: 127.0.0.1
+
+  tasks:
+  - name: Start Docker Swarm Manager
+    command: docker swarm init --advertise-addr 192.168.50.1 
+    become: yes
+
+  - name: Get Token 
+    command: docker swarm join-token manager --quiet
+    register: token
+    become: yes
+
+  - name: Join Docker Swarm Workers on VM1
+    command: chdir=../vagrant vagrant ssh vm1 -c 'sudo docker swarm join --token {{ token.stdout }} 192.168.50.1:2377'
+  
+  - name: Join Docker Swarm Workers on VM2
+    command: chdir=../vagrant vagrant ssh vm2 -c 'sudo docker swarm join --token {{ token.stdout }} 192.168.50.1:2377'
+
+  - name: Enable autolock Swarm
+    command: docker swarm update --autolock=true
+    become: yes
