@@ -1,0 +1,28 @@
+---
+sudo: required
+dist: trusty
+
+language: python
+python: "2.7"
+
+# Doc: https://docs.travis-ci.com/user/customizing-the-build#Build-Matrix
+env:
+  - ANSIBLE_VERSION=latest
+
+branches:
+  only:
+    - master
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # Install Ansible.
+  - pip install ansible
+  - pip install ansible-lint
+
+script:
+  # Check the role/playbook's syntax.
+  - ansible-playbook main.yml --syntax-check
+
+
