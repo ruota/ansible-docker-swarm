@@ -1,0 +1,10 @@
+---
+- hosts: 127.0.0.1
+
+  tasks:
+  - name: Create Vagrant Dir
+    command: cp -r ../files/vagrant ../
+
+  - name: Install VMs CentOS with Docker
+    command: chdir=../vagrant vagrant up > vagrant.log
+
