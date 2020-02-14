@@ -1,0 +1,9 @@
+---
+- hosts: 127.0.0.1
+
+  tasks:
+  - name: Check Size Docker Partition VM1
+    command: chdir=../vagrant vagrant ssh vm1 -c '/vagrant/resize-disk.sh'
+    
+  - name: Check Size Docker Partition VM2
+    command: chdir=../vagrant vagrant ssh vm2 -c '/vagrant/resize-disk.sh'
